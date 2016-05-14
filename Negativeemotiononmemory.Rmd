@@ -1,0 +1,52 @@
+---
+title: "Negative Emotions on Memory"
+author: "Sexton/Houtz"
+date: "May 11, 2016"
+output: html_document
+---
+
+This is an experiment examing the effects of negative emotions (fear, sadness, and disgust) on working memory function. To begin our analyses, I imported the data set, set the working directory, and commanded R to read the csv file with the following command:
+```{r}
+dat<-read.csv("Experimentdata.csv")
+```
+Next, we will look at the structure of our data.
+```{r}
+str(dat)
+```
+As you can see, we have 71 observations of 17 variables, 16 of which are listed as integer variables. The other variable, a factor variable, titled condition, consists of four levels: "fear", "sadness", "disgust", and "control".
+Next we will do some simple calculations examing the mean score of different variables. We need to load some packages that we will be using later, so enter the following command:
+```{r}
+library(ggplot2)
+library(gplots)
+library(dplyr)
+```
+To check the mean score of words rememebered overall:
+```{r}
+ mean(dat$wordsremembered)
+```
+To examine the mean score of words remembered within each group use the following command:
+```{r}
+mean(dat$wordsremembered[dat$condition=="fear"])
+```
+We will continue with the formula above, substituting each of the four conditions to get the mean number of words remembered for each condition.
+```{r}
+mean(dat$wordsremembered[dat$condition=="disgust"])
+```
+```{r}
+mean(dat$wordsremembered[dat$condition=="sadness"])
+```
+```{r}
+mean(dat$wordsremembered[dat$condition=="neutral"])
+```
+Now we will run a one-way ANOVA examing the effects of condition on the number of words remembered.First we will set temp and tell R to use all of the conditions.
+```{r}
+temp<-dat[dat$condition=="fear"]
+```
+Then we will run our ANOVA
+```{r}
+summary(aov(wordsremembered~condition, data=temp))
+```
+
+
+
+
